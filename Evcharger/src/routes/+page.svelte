@@ -28,13 +28,14 @@
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="type {elm ? 'clicked' : ''}"
-            on:click={() => (isClickArr_charger_DC[i] = !isClickArr_charger_DC[i])}
+            on:click={() =>
+                (isClickArr_charger_DC[i] = !isClickArr_charger_DC[i])}
         >
             <img
-                src="/img/charge{i+3}.png"
+                src="/img/charge{i + 3}.png"
                 width="200"
                 height="200"
-                alt="charge{i+3}"
+                alt="charge{i + 3}"
             /><br />
             <span>DC</span>
         </div>
@@ -70,25 +71,12 @@
             <span>완속</span>
         </div>
     {/each}
+
+    <div />
+    <!-- <div class="choose_finish">선택완료</div> -->
+
+    <a href="http://localhost:5173/server" class="choose_finish">선택완료</a>
 </div>
-
-<!-- <table>
-    <tr>
-        <td colspan="2"><h1>타입</h1> </td>
-    </tr>
-    <tr>
-        <td>
-            <h1>급속</h1>
-            <br />
-            <img src="./img/fast.png" width="200" height="120" /></td
-        >
-
-        <td>
-            <h1>완속</h1>
-            <br /><img src="./img/full.png" width="200" height="120" /></td
-        >
-    </tr>
-</table> -->
 
 <style>
     .container {
@@ -97,6 +85,7 @@
         max-width: 500px;
         margin: auto;
         grid-template-columns: 1fr 1fr;
+        text-align: center;
     }
     .title {
         text-align: center;
@@ -109,5 +98,14 @@
     }
     .clicked > img {
         background-color: rgb(123, 230, 57);
+    }
+    .choose_finish {
+        font-weight: 500;
+        font-size: xx-large;
+        color: rgb(31, 155, 0);
+    }
+    span {
+        font-weight: bold;
+        color: dimgray;
     }
 </style>

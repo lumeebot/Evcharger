@@ -1,21 +1,45 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    let container:HTMLDivElement;
+    let container: HTMLDivElement;
 
-    let map:kakao.maps.Map;
+    let map: kakao.maps.Map;
+    let latitude = 33.450701;
+    let longitude = 126.570667;
+    function getUserLocation() {
+        if (!navigator.geolocation) {
+            throw "위치 정보가 지원되지 않습니다.";
+        }
+        navigator.geolocation.watchPosition(({coords, timestamp}) => {
+            latitude = coords.latitude; // 위도
+            longitude = coords.longitude; // 경도
+            let position = new kakao.maps.LatLng(latitude, longitude);
+            let maker = new kakao.maps.Marker({
+                position,
+                image:new kakao.maps.MarkerImage('/img/user_local.png', new kakao.maps.Size(30, 50))
+            });
+            maker.setMap(map);
+            map.setCenter(position)
+        });
+    }
 
     onMount(() => {
         const options = {
             //지도를 생성할 때 필요한 기본 옵션
-            center: new kakao.maps.LatLng(37.3194789, 126.838415), //지도의 중심좌표.  (사용자 현 위치로 바꿀 것)
+            center: new kakao.maps.LatLng(latitude, longitude), //지도의 중심좌표.  (사용자 현 위치로 바꿀 것)
             level: 3, //지도의 레벨(확대, 축소 정도)  (확대 수준이 바뀔때마다 업데이트)
         };
         map = new kakao.maps.Map(container, options);
+        console.log(map);
+        getUserLocation();
     });
 </script>
 
-<!-- {#each Array(15) as _,index}`
-    <button on:click={() => map.setLevel(index)}>{index}로 레벨 바꾸기</button>
-{/each} -->
+<div id="map" bind:this={container} />
+<div style="position: fixed; top:0; left:0; z-index:2">위도 : {latitude}, 경도 : {longitude}</div>
 
-<div id="map" bind:this={container} style="width:1536px;height:840px;" />
+<style>
+    #map{
+        width: 100vw;
+        height: 100vh;
+    }
+</style>
