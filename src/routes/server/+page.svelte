@@ -6,7 +6,7 @@
     let latitude = 33.450701;
     let longitude = 126.570667;
 
-    location.replace(location.href);
+    location.replace('https://evcharger.vercel.app/server');
     
     function getUserLocation() {
         if (!navigator.geolocation) {
