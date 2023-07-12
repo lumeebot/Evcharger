@@ -5,9 +5,6 @@
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
-
-    location.replace('https://evcharger.vercel.app/server');
-    
     function getUserLocation() {
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
@@ -38,6 +35,8 @@
         console.log(map);
         getUserLocation();
     });
+    location.reload();
+
 </script>
 
 <div id="map" bind:this={container} />
@@ -54,7 +53,7 @@
         width: 100vw;
         height: 100vh;
     }
-    a {
+    a{
         width: 100px;
         height: 100px;
     }
