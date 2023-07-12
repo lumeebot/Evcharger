@@ -52,7 +52,7 @@
         height: 100vh;
     }
     a{
-        width: 10px;
-        height: 10px;
+        width: 100px;
+        height: 100px;
     }
 </style>
