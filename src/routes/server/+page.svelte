@@ -9,16 +9,19 @@
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
         }
-        navigator.geolocation.watchPosition(({coords, timestamp}) => {
+        navigator.geolocation.watchPosition(({ coords, timestamp }) => {
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
             let position = new kakao.maps.LatLng(latitude, longitude);
             let maker = new kakao.maps.Marker({
                 position,
-                image:new kakao.maps.MarkerImage('/img/user_local.png', new kakao.maps.Size(30, 50))
+                image: new kakao.maps.MarkerImage(
+                    "/img/user_local.png",
+                    new kakao.maps.Size(30, 50)
+                ),
             });
             maker.setMap(map);
-            map.setCenter(position)
+            map.setCenter(position);
         });
     }
 
@@ -35,10 +38,16 @@
 </script>
 
 <div id="map" bind:this={container} />
-<div style="position: fixed; top:0; left:0; z-index:2">위도 : {latitude}, 경도 : {longitude}</div>
+<div style="position: fixed; top:0; left:0; z-index:2">
+    위도 : {latitude}, 경도 : {longitude}
+</div>
+<a
+    style="position: fixed; top:0; right:0; z-index:2"
+    href="https://evcharger.vercel.app/">🔙</a
+>
 
 <style>
-    #map{
+    #map {
         width: 100vw;
         height: 100vh;
     }
