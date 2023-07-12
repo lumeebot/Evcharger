@@ -59,6 +59,6 @@
         text-decoration: none;
     }
     .cl {
-        color: rgb(31, 34, 71);
+        color: rgb(109,196,219);
     }
 </style>
