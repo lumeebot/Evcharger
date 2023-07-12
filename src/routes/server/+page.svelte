@@ -5,6 +5,7 @@
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
+    location.reload();
     function getUserLocation() {
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
@@ -51,7 +52,7 @@
         width: 100vw;
         height: 100vh;
     }
-    a{
+    a {
         width: 100px;
         height: 100px;
     }
