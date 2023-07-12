@@ -43,7 +43,7 @@
 </div>
 <a
     style="position: fixed; top:0; right:0; z-index:2"
-    href="https://evcharger.vercel.app/">🔙</a
+    href="https://evcharger.vercel.app/">뒤로</a
 >
 
 <style>
@@ -54,5 +54,6 @@
     a {
         width: 100px;
         height: 100px;
+        font-size: xx-large;
     }
 </style>
