@@ -58,7 +58,7 @@
         font-size: xx-large;
         text-decoration: none;
     }
-    .cl{
-        color: aquamarine;
+    .cl {
+        color: rgb(31, 34, 71);
     }
 </style>
