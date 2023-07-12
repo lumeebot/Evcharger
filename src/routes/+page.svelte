@@ -73,9 +73,7 @@
     {/each}
 
     <div />
-    <!-- <div class="choose_finish">선택완료</div> -->
-
-    <a href="http://localhost:5173/server" class="choose_finish">선택완료</a>
+    <div class="choose_finish">선택완료</div>
 </div>
 
 <style>
