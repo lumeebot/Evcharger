@@ -35,7 +35,6 @@
         console.log(map);
         getUserLocation();
     });
-    location.reload();
 
 </script>
 
