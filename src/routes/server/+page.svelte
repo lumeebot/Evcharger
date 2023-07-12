@@ -35,7 +35,6 @@
         console.log(map);
         getUserLocation();
     });
-
 </script>
 
 <div id="map" bind:this={container} />
@@ -52,7 +51,7 @@
         width: 100vw;
         height: 100vh;
     }
-    a{
+    a {
         width: 100px;
         height: 100px;
     }
