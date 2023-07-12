@@ -51,4 +51,8 @@
         width: 100vw;
         height: 100vh;
     }
+    a{
+        width: 10px;
+        height: 10px;
+    }
 </style>
