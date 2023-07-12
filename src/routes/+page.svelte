@@ -73,7 +73,9 @@
     {/each}
 
     <div />
-    <div class="choose_finish">선택완료</div>
+    <a href="https://evcharger.vercel.app/server" class="choose_finish"
+        >선택완료</a
+    >
 </div>
 
 <style>
@@ -105,5 +107,8 @@
     span {
         font-weight: bold;
         color: dimgray;
+    }
+    a {
+        text-decoration: none;
     }
 </style>
