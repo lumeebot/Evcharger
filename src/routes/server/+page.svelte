@@ -38,14 +38,10 @@
 </script>
 
 <div id="map" bind:this={container} />
-<div style="position: fixed; top:0; left:0; z-index:2">
+<div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
     위도 : {latitude}, 경도 : {longitude}
 </div>
-<a
-    class="cl"
-    style="position: fixed; top:0; right:0; z-index:2"
-    href="../">뒤로</a
->
+<a class="cl" href="../">뒤로</a>
 
 <style>
     #map {
@@ -59,6 +55,15 @@
         text-decoration: none;
     }
     .cl {
-        color: rgb(109,196,219);
+        width: 70px;
+        color: black;
+        position: fixed;
+        top:0;
+        right:0;
+        z-index:2
+
+    }
+    .bacolor{
+        background-color: whitesmoke;
     }
 </style>
