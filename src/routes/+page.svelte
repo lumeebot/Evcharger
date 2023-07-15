@@ -73,7 +73,7 @@
     {/each}
 
     <div />
-    <a href="https://evcharger.vercel.app/server" class="choose_finish"
+    <a href="/server" class="choose_finish"
         >선택완료</a
     >
 </div>

@@ -44,7 +44,7 @@
 <a
     class="cl"
     style="position: fixed; top:0; right:0; z-index:2"
-    href="https://evcharger.vercel.app">뒤로</a
+    href="../">뒤로</a
 >
 
 <style>
