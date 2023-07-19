@@ -1,7 +1,7 @@
 interface iRequestAPI{
     pageNo:number;
     numOfRows:number;
-    period:number;
+    // period:number;
     zcode:number;
 }
 
@@ -12,7 +12,7 @@ export const requestAPI = async (obj:iRequestAPI) => {
     url.searchParams.append('serviceKey', 'V1eEuRvqApUSfQZV0OD7hipwnjfd+sSgQvhboyJiuRP/7ioB0DMhINkxhkEylCgQjtOw+uwJ23mPCAEC5Gg8Xw==');  
     url.searchParams.append('pageNo', String(obj.pageNo));
     url.searchParams.append('numOfRows', String(obj.numOfRows));
-    url.searchParams.append('period', String(obj.period));
+    // url.searchParams.append('period', String(obj.period));
     url.searchParams.append('zcode', String(obj.zcode));
     const res = await fetch(url);
     const text = await res.text();

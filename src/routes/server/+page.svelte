@@ -35,9 +35,9 @@
         map = new kakao.maps.Map(container, options);
         console.log(map);
         getUserLocation();
-        const dom = await requestAPI({ pageNo: 1, numOfRows: 10, period: 5, zcode:11});
+        const dom = await requestAPI({ pageNo: 1, numOfRows: 10, zcode:11});        // period: 5,
         for(const t of dom.querySelectorAll('item')){
-            console.log(t.querySelector('statUpdDt')?.textContent)
+            console.log(t.querySelector('lat')?.textContent)
         }
     });
 </script>
