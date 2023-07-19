@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import { requestAPI } from "$lib/api";
     let container: HTMLDivElement;
 
     let map: kakao.maps.Map;
@@ -25,7 +26,7 @@
         });
     }
 
-    onMount(() => {
+    onMount(async () => {
         const options = {
             //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(latitude, longitude), //지도의 중심좌표.  (사용자 현 위치로 바꿀 것)
@@ -34,6 +35,10 @@
         map = new kakao.maps.Map(container, options);
         console.log(map);
         getUserLocation();
+        const dom = await requestAPI({ pageNo: 1, numOfRows: 10, period: 5, zcode:11});
+        for(const t of dom.querySelectorAll('item')){
+            console.log(t.querySelector('statUpdDt')?.textContent)
+        }
     });
 </script>
 
