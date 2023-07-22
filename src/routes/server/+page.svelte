@@ -3,7 +3,7 @@
     import { requestAPI } from "$lib/api";
     let container: HTMLDivElement;
 
-    let level = 3;
+    $: level = 3;
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
@@ -14,7 +14,10 @@
         navigator.geolocation.watchPosition(({ coords, timestamp }) => {
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
-            let position = new kakao.maps.LatLng(latitude-0.0002, longitude+0.00012);
+            let position = new kakao.maps.LatLng(
+                latitude - 0.0002,
+                longitude + 0.00012
+            );
             let maker = new kakao.maps.Marker({
                 position,
                 image: new kakao.maps.MarkerImage(
@@ -41,6 +44,19 @@
             console.log(t.querySelector("lat")?.textContent);
         }
     });
+    const minuslevel = () => {
+        if (level !==14) {
+            level += 1;
+        }
+        
+        console.log(level);
+    };
+    const pluslevel = () => {
+        if (level !== 1) {
+            level -= 1;
+        }
+        console.log(level);
+    };
 </script>
 
 <div id="map" bind:this={container} />
@@ -53,9 +69,9 @@
     style="position: fixed; bottom:0; right:0; z-index:2"
     class="maplevel bacolor"
 >
-    <span>+</span>
-    /  
-    <span>-    </span>
+    <span on:click={pluslevel}>+</span>
+    /
+    <span on:click={minuslevel}>-</span>
 </div>
 
 <style>
