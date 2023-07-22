@@ -45,10 +45,10 @@
         }
     });
     const minuslevel = () => {
-        if (level !==14) {
+        if (level !== 14) {
             level += 1;
         }
-        
+
         console.log(level);
     };
     const pluslevel = () => {
