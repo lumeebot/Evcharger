@@ -14,7 +14,7 @@
         navigator.geolocation.watchPosition(({ coords, timestamp }) => {
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
-            let position = new kakao.maps.LatLng(latitude-0.00024, longitude+0.00012);
+            let position = new kakao.maps.LatLng(latitude-0.00022, longitude+0.00012);
             let maker = new kakao.maps.Marker({
                 position,
                 image: new kakao.maps.MarkerImage(
