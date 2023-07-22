@@ -84,6 +84,6 @@
         width: auto;
         height: auto;
         text-align: center;
-        font-size: x-large;
+        font-size: xx-large;
     }
 </style>
