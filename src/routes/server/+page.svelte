@@ -49,6 +49,15 @@
 </div>
 <a class="cl" href="../">뒤로</a>
 
+<div
+    style="position: fixed; bottom:0; right:0; z-index:2"
+    class="maplevel bacolor"
+>
+    <span>+</span>
+    /
+    <span>-</span>
+</div>
+
 <style>
     #map {
         width: 100vw;
@@ -70,5 +79,11 @@
     }
     .bacolor {
         background-color: whitesmoke;
+    }
+    .maplevel {
+        width: auto;
+        height: auto;
+        text-align: center;
+        font-size: x-large;
     }
 </style>
