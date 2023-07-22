@@ -54,7 +54,7 @@
     class="maplevel bacolor"
 >
     <span>+</span>
-    /
+    /  
     <span>-    </span>
 </div>
 
