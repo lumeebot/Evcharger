@@ -7,7 +7,7 @@ interface iRequestAPI{
 
 export const requestAPI = async (obj:iRequestAPI) => {
     // var url = 'http://apis.data.go.kr/B552584/EvCharger/getChargerStatus'; /*URL*/
-    const url = new URL(' http://apis.data.go.kr/B552584/EvCharger/getChargerInfo');
+    const url = new URL('https://apis.data.go.kr/B552584/EvCharger/getChargerInfo');
     // 서비스키
     url.searchParams.append('serviceKey', 'V1eEuRvqApUSfQZV0OD7hipwnjfd+sSgQvhboyJiuRP/7ioB0DMhINkxhkEylCgQjtOw+uwJ23mPCAEC5Gg8Xw==');  
     url.searchParams.append('pageNo', String(obj.pageNo));
