@@ -59,7 +59,7 @@
     };
 </script>
 
-<div id="map" bind:this={container} />
+<div id="map" bind:this={container} />  
 <div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
     위도 : {latitude}, 경도 : {longitude}
 </div>
