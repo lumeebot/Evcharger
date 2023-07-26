@@ -16,8 +16,8 @@
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
             let position = new kakao.maps.LatLng(
-                latitude - 0.0002,
-                longitude + 0.00012
+                latitude - 0.00004,
+                longitude - 0.00017
             );
             let maker = new kakao.maps.Marker({
                 position,
