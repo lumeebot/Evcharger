@@ -2,7 +2,8 @@
     import { onMount } from "svelte";
     import { requestAPI } from "$lib/api";
     let container: HTMLDivElement;
-
+    let lat;
+    let lng;
     $: level = 3;
     let map: kakao.maps.Map;
     let latitude = 33.450701;
@@ -40,8 +41,13 @@
         console.log(map);
         getUserLocation();
         const dom = await requestAPI({ pageNo: 1, numOfRows: 10, zcode: 11 }); // period: 5,
+
         for (const t of dom.querySelectorAll("item")) {
-            console.log(t.querySelector("lat")?.textContent);
+            lat = t.querySelector("lat")?.textContent;
+            lng = t.querySelector("lng")?.textContent
+            console.log(lat);
+            console.log(lng);
+            console.log("---------------------------------------------------")
         }
     });
     const minuslevel = () => {
