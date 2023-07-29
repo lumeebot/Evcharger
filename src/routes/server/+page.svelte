@@ -49,19 +49,17 @@
             console.log("---------------------------------------------------");
         }
     });
-    const zoomOut = () => {
-        if (level !== 14) {
-            level += 1;
-        }
+    function zoomIn() {
+        // 현재 지도의 레벨을 얻어옵니다
+        level = map.getLevel();
+        map.setLevel(level - 1);
+    }
 
-        console.log(level);
-    };
-    const zoomIn = () => {
-        if (level !== 1) {
-            level -= 1;
-        }
-        console.log(level);
-    };
+    function zoomOut() {
+        // 현재 지도의 레벨을 얻어옵니다
+        level = map.getLevel();
+        map.setLevel(level + 1);
+    }
     const reload = () => {
         window.location.reload();
     };
@@ -78,12 +76,12 @@
     <a href="../" class="chcl" style="cursor: pointer;">[BACK]</a>
 </div>
 <div
-    style="position: fixed; bottom:0; right:0; z-index:2"
+    style="position: fixed; bottom:0; right:0; z-index:2;cursor: pointer;"
     class="maplevel bacolor"
 >
-    <span on:click={zoomIn} style="cursor: pointer;">+</span>
+    <span on:click={zoomIn}>+</span>
     /
-    <span on:click={zoomOut} style="cursor: pointer;">-</span>
+    <span on:click={zoomOut}>-</span>
 </div>
 
 <style>
