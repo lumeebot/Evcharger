@@ -17,8 +17,8 @@
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
             let position = new kakao.maps.LatLng(
-                latitude - 0.00004,
-                longitude - 0.00017
+                latitude,
+                longitude
             );
             let maker = new kakao.maps.Marker({
                 position,
@@ -44,42 +44,50 @@
         const dom = await requestAPI({ pageNo: 1, numOfRows: 10, zcode: 11 }); // period: 5,
 
         for (const t of dom.querySelectorAll("item")) {
-            lat = t.querySelector("lat")?.textContent;  //위도
-            lng = t.querySelector("lng")?.textContent;  //경도
-            useTime = t.querySelector("useTime")?.textContent;  //사용가능 시간
+            lat = t.querySelector("lat")?.textContent; //위도
+            lng = t.querySelector("lng")?.textContent; //경도
+            useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
             console.log(lat);
             console.log(lng);
             console.log("---------------------------------------------------");
         }
     });
-    const minuslevel = () => {
+    const zoomOut = () => {
         if (level !== 14) {
             level += 1;
         }
 
         console.log(level);
     };
-    const pluslevel = () => {
+    const zoomIn = () => {
         if (level !== 1) {
             level -= 1;
         }
-        console.log(level); 
+        console.log(level);
     };
+    const reload = () => {
+        window.location.reload();
+    };
+    
 </script>
 
 <div id="map" bind:this={container} />
 <div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
     위도 : {latitude}, 경도 : {longitude}
 </div>
-<a class="cl" href="../">뒤로</a>
 
+<div class="cl">
+    <a on:click={reload} style="cursor: pointer;">[새로고침]</a>
+    <br />
+    <a href="../"class="chcl" style="cursor: pointer;">[BACK]</a>
+</div>
 <div
     style="position: fixed; bottom:0; right:0; z-index:2"
     class="maplevel bacolor"
 >
-    <span on:click={pluslevel}>+</span>
+    <span on:click={zoomIn}>+</span>
     /
-    <span on:click={minuslevel}>-</span>
+    <span on:click={zoomOut}>-</span>
 </div>
 
 <style>
@@ -94,20 +102,25 @@
         text-decoration: none;
     }
     .cl {
-        width: 70px;
+        height: auto;
+        width: auto;
         color: black;
         position: fixed;
         top: 0;
         right: 0;
         z-index: 2;
+        text-align: right;
     }
     .bacolor {
-        background-color: whitesmoke;
+        /* background-color: whitesmoke; */
     }
     .maplevel {
         width: auto;
         height: auto;
         text-align: center;
         font-size: xx-large;
+    }
+    .chcl{
+        color: black;
     }
 </style>
