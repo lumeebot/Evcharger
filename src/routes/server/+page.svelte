@@ -4,6 +4,7 @@
     let container: HTMLDivElement;
     let lat;
     let lng;
+    let useTime;
     $: level = 3;
     let map: kakao.maps.Map;
     let latitude = 33.450701;
@@ -43,11 +44,12 @@
         const dom = await requestAPI({ pageNo: 1, numOfRows: 10, zcode: 11 }); // period: 5,
 
         for (const t of dom.querySelectorAll("item")) {
-            lat = t.querySelector("lat")?.textContent;
-            lng = t.querySelector("lng")?.textContent
+            lat = t.querySelector("lat")?.textContent;  //위도
+            lng = t.querySelector("lng")?.textContent;  //경도
+            useTime = t.querySelector("useTime")?.textContent;  //사용가능 시간
             console.log(lat);
             console.log(lng);
-            console.log("---------------------------------------------------")
+            console.log("---------------------------------------------------");
         }
     });
     const minuslevel = () => {
@@ -61,11 +63,11 @@
         if (level !== 1) {
             level -= 1;
         }
-        console.log(level);
+        console.log(level); 
     };
 </script>
 
-<div id="map" bind:this={container} />  
+<div id="map" bind:this={container} />
 <div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
     위도 : {latitude}, 경도 : {longitude}
 </div>
