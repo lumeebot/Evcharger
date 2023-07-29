@@ -16,10 +16,7 @@
         navigator.geolocation.watchPosition(({ coords, timestamp }) => {
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
-            let position = new kakao.maps.LatLng(
-                latitude,
-                longitude
-            );
+            let position = new kakao.maps.LatLng(latitude, longitude);
             let maker = new kakao.maps.Marker({
                 position,
                 image: new kakao.maps.MarkerImage(
@@ -68,7 +65,6 @@
     const reload = () => {
         window.location.reload();
     };
-    
 </script>
 
 <div id="map" bind:this={container} />
@@ -79,15 +75,15 @@
 <div class="cl">
     <a on:click={reload} style="cursor: pointer;">[새로고침]</a>
     <br />
-    <a href="../"class="chcl" style="cursor: pointer;">[BACK]</a>
+    <a href="../" class="chcl" style="cursor: pointer;">[BACK]</a>
 </div>
 <div
     style="position: fixed; bottom:0; right:0; z-index:2"
     class="maplevel bacolor"
 >
-    <span on:click={zoomIn}>+</span>
+    <span on:click={zoomIn} style="cursor: pointer;">+</span>
     /
-    <span on:click={zoomOut}>-</span>
+    <span on:click={zoomOut} style="cursor: pointer;">-</span>
 </div>
 
 <style>
@@ -120,7 +116,7 @@
         text-align: center;
         font-size: xx-large;
     }
-    .chcl{
+    .chcl {
         color: black;
     }
 </style>

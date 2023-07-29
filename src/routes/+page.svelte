@@ -20,8 +20,9 @@
                 width="200"
                 height="200"
                 alt="charge{i}"
+                style="cursor: pointer;"
             /><br />
-            <span>AC/DC</span>
+            <span  style="cursor: pointer;">AC/DC</span>
         </div>
     {/each}
     {#each isClickArr_charger_DC as elm, i}
@@ -36,8 +37,9 @@
                 width="200"
                 height="200"
                 alt="charge{i + 3}"
+                style="cursor: pointer;"
             /><br />
-            <span>DC</span>
+            <span  style="cursor: pointer;">DC</span>
         </div>
     {/each}
 
@@ -52,8 +54,9 @@
                 width="200"
                 height="120"
                 alt="charge_way{i}"
+                style="cursor: pointer;"
             /><br />
-            <span>급속</span>
+            <span  style="cursor: pointer;">급속</span>
         </div>
     {/each}
     {#each isClickArr_wayfull as elm, i}
@@ -67,14 +70,14 @@
                 width="200"
                 height="120"
                 alt="charge_way{i + 1}"
+                style="cursor: pointer;"
             /><br />
-            <span>완속</span>
+            <span style="cursor: pointer;">완속</span>
         </div>
     {/each}
 
     <div />
-    <a href="/server" class="choose_finish"
-        >선택완료</a
+    <a href="/server" style="cursor: pointer;" class="choose_finish">선택완료</a
     >
 </div>
 
