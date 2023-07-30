@@ -44,9 +44,9 @@
             lat = t.querySelector("lat")?.textContent; //위도
             lng = t.querySelector("lng")?.textContent; //경도
             useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
-            console.log(lat);
-            console.log(lng);
-            console.log("---------------------------------------------------");
+            // console.log(lat);
+            // console.log(lng);
+            // console.log("---------------------------------------------------");
         }
     });
     function zoomIn() {

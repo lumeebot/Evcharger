@@ -18,5 +18,6 @@ export const requestAPI = async (obj:iRequestAPI) => {
     const text = await res.text();
     const parser = new DOMParser();
     const result = parser.parseFromString(text, 'application/xml')
+    console.log(result)
     return result;
 }
