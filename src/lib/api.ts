@@ -14,6 +14,7 @@ export const requestAPI = async (obj:iRequestAPI) => {
     url.searchParams.append('numOfRows', String(obj.numOfRows));
     // url.searchParams.append('period', String(obj.period));
     url.searchParams.append('zcode', String(obj.zcode));
+    url.searchParams.append('zscode', '41270')
     const res = await fetch(url);
     const text = await res.text();
     const parser = new DOMParser();

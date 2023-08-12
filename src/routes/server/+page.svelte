@@ -2,32 +2,13 @@
     import { onMount } from "svelte";
     import { requestAPI } from "$lib/api";
     let container: HTMLDivElement;
-    let lat;
-    let lng;
+    let lat: number | any;
+    let lng: number | any;
     let useTime;
     $: level = 3;
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
-
-    let positions = [
-        {
-            title: "카카오",
-            latlng: new kakao.maps.LatLng(33.450705, 126.570677),
-        },
-        {
-            title: "생태연못",
-            latlng: new kakao.maps.LatLng(33.450936, 126.569477),
-        },
-        {
-            title: "텃밭",
-            latlng: new kakao.maps.LatLng(33.450879, 126.56994),
-        },
-        {
-            title: "근린공원",
-            latlng: new kakao.maps.LatLng(33.451393, 126.570738),
-        },
-    ];
     function getUserLocation() {
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
@@ -36,14 +17,16 @@
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
             let position = new kakao.maps.LatLng(latitude, longitude);
-            let maker = new kakao.maps.Marker({
-                position,
+
+            let userMaker = new kakao.maps.Marker({
+                position: position,
                 image: new kakao.maps.MarkerImage(
                     "/img/user_local.png",
                     new kakao.maps.Size(30, 50)
                 ),
             });
-            maker.setMap(map);
+
+            userMaker.setMap(map);
             map.setCenter(position);
         });
     }
@@ -57,15 +40,16 @@
         map = new kakao.maps.Map(container, options);
         console.log(map);
         getUserLocation();
-        const dom = await requestAPI({ pageNo: 1, numOfRows: 10, zcode: 11 }); // period: 5,
+        const dom = await requestAPI({ pageNo: 1, numOfRows: 10, zcode: 41 }); // period: 5,
 
         for (const t of dom.querySelectorAll("item")) {
             lat = t.querySelector("lat")?.textContent; //위도
             lng = t.querySelector("lng")?.textContent; //경도
             useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
-            // console.log(lat);
-            // console.log(lng);
-            // console.log("---------------------------------------------------");
+            console.log(lat);
+            console.log(lng);
+            console.log("---------------------------------------------------");
+            getChargerLocation();
         }
     });
     function zoomIn() {
@@ -82,6 +66,20 @@
     const reload = () => {
         window.location.reload();
     };
+    function getChargerLocation() {
+        let position = new kakao.maps.LatLng(lat, lng);
+
+        let chergerMaker = new kakao.maps.Marker({
+            position: position,
+            image: new kakao.maps.MarkerImage(
+                "/img/ev_local.png",
+                new kakao.maps.Size(30, 50)
+            ),
+        });
+        console.log(lat);
+        console.log(lng);
+        chergerMaker.setMap(map);
+    }
 </script>
 
 <div id="map" bind:this={container} />
@@ -92,7 +90,7 @@
 <div class="cl">
     <a on:click={reload} style="cursor: pointer;">[새로고침]</a>
     <br />
-    <a href="../" class="chcl" style="cursor: pointer;">[BACK]</a>
+    <a href="../" class="focl" style="cursor: pointer;">[BACK]</a>
 </div>
 <div
     style="position: fixed; bottom:0; right:0; z-index:2;cursor: pointer;"
@@ -133,7 +131,7 @@
         text-align: center;
         font-size: xx-large;
     }
-    .chcl {
+    .focl {
         color: black;
     }
 </style>
