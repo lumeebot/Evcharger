@@ -80,6 +80,9 @@
         console.log(lng);
         chergerMaker.setMap(map);
     }
+    function userLocalLocation() {
+        
+    }
 </script>
 
 <div id="map" bind:this={container} />
