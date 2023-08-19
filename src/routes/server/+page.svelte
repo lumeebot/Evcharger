@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { requestAPI } from "$lib/api";
     import LIST from "$lib/geo.json";
+    import { browser } from "$app/environment";
     console.log(LIST);
     let container: HTMLDivElement;
     let lat: number | any;
@@ -12,28 +13,30 @@
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
-    let clOv;
+    const overlayMap = new Map<string,kakao.maps.CustomOverlay>()
+    if(browser){
+        /**@ts-ignore*/
+        window.map = overlayMap;
+    }
     // 커스텀 오버레이에 표시할 컨텐츠 입니다
     // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
     // 별도의 이벤트 메소드를 제공하지 않습니다
-    let content =
-        '<div class="wrap">' +
-        '    <div class="info">' +
-        '        <div class="title">' +
-        '            <div class="close" on:click={closeOverlay} title="닫기">X</div>' +
-        "            {useTime}" +
-        "        </div>" +
-        '        <div class="body">' +
-        '            <div class="img">' +
-        '                <a href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212"><img src="/img/kakao_logo.webp" width="33" height="30"></a>' +
-        "           </div>" +
-        '            <div class="desc">' +
-        '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' +
-        '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' +
-        "            </div>" +
-        "        </div>" +
-        "    </div>" +
-        "</div>";
+    let content = (lat:number,lng:number) => `<div class="wrap">
+            <div class="info">
+                <div class="title">
+                    <div class="close" onclick="console.log('${lat},${lng}');if(window.map.get('${lat},${lng}')) window.map.get('${lat},${lng}').setMap(null)" title="닫기">X</div>
+                    ${useTime}
+                </div>
+                <div class="body">
+                    <div class="img">
+                        <a href="https://map.kakao.com/link/to/${statNm},${lat},${lng}"><img src="/img/kakao_logo.webp" width="33" height="30"></a>
+                   </div>
+                    <div class="desc">
+                        <div class="ellipsis">${statNm}</div>
+                    </div>
+               </div>
+            </div>
+        </div>`;
 
     function getUserLocation() {
         if (!navigator.geolocation) {
@@ -111,21 +114,16 @@
         // 마커 위에 커스텀오버레이를 표시합니다
         // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
         let overlay = new kakao.maps.CustomOverlay({
-            content: content,
+            content: content(lat, lng),
             map: map,
-            position: marker.getPosition(),
+            position: marker.getPosition()
         });
-
+        overlay.setMap(null);
+        overlayMap.set(`${lat},${lng}`, overlay);
         // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
         kakao.maps.event.addListener(marker, "click", function () {
             overlay.setMap(map);
         });
-
-        // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
-        function closeOverlay() {
-            overlay.setMap(null);
-        }
-        clOv = closeOverlay;
     }
 </script>
 
