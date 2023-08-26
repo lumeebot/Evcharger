@@ -87,7 +87,7 @@
             useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
             statNm = t.querySelector("statNm")?.textContent; //충전소 명
             addr = t.querySelector("addr")?.textContent; //소재지 도로명 주소
-            chgerType = t.querySelector("chgerType")?.textContent; //충전기용량
+            chgerType = t.querySelector("chgerType")?.textContent; //충전기타입
             powerType = t.querySelector("powerType")?.textContent; //충전기용량
 
             console.log(statNm);
