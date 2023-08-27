@@ -11,11 +11,13 @@
     let statNm: any;
     let addr: any;
     let chgerType: any;
-    let powerType: any;
+    let stat: any;
     $: level = 3;
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
+    let userlat = 0;
+    let userlng = 0;
     const overlayMap = new Map<string, kakao.maps.CustomOverlay>();
     if (browser) {
         /**@ts-ignore*/
@@ -38,8 +40,8 @@
                         <div class="ellipsis">${addr}</div>
                         <div class="ellipsis">${statNm}</div>
                         <div class="ellipsis">${useTime}</div>
-                        <div class="ellipsis">타입 : ${chgerType}</div>
-                        <div class="ellipsis">${powerType}</div>
+                        <div class="ellipsis">타입 : ${type()}</div>
+                        <div class="ellipsis">충전기 상태 : ${chergerStat()}</div>
                     </div>
                     <div class="img">
                         <a href="https://map.kakao.com/link/to/${statNm},${lat},${lng}" target="_blank"><img src="/img/kakao_logo.webp" width="33" height="30"></a>
@@ -47,29 +49,6 @@
                </div>
             </div>
         </div>`;
-
-    function getUserLocation() {
-        if (!navigator.geolocation) {
-            throw "위치 정보가 지원되지 않습니다.";
-        }
-        navigator.geolocation.watchPosition(({ coords, timestamp }) => {
-            latitude = coords.latitude; // 위도
-            longitude = coords.longitude; // 경도
-            let position = new kakao.maps.LatLng(latitude, longitude);
-
-            let marker = new kakao.maps.Marker({
-                position: position,
-                image: new kakao.maps.MarkerImage(
-                    "/img/user_local.png",
-                    new kakao.maps.Size(30, 50)
-                ),
-            });
-
-            marker.setMap(map);
-            map.setCenter(position);
-        });
-    }
-
     onMount(async () => {
         const options = {
             //지도를 생성할 때 필요한 기본 옵션
@@ -87,32 +66,60 @@
             useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
             statNm = t.querySelector("statNm")?.textContent; //충전소 명
             addr = t.querySelector("addr")?.textContent; //소재지 도로명 주소
-            chgerType = t.querySelector("chgerType")?.textContent; //충전기타입
-            powerType = t.querySelector("powerType")?.textContent; //충전기용량
+            chgerType = t.querySelector("chgerType")?.textContent; //충전기 타입
+            stat = t.querySelector("stat")?.textContent; //충전기 용량
 
             console.log(statNm);
             console.log(lat);
             console.log(lng);
             console.log(chgerType);
-            console.log(powerType);
+            console.log(stat);
             console.log("---------------------------------------------------");
             getChargerLocation();
         }
     });
-    function zoomIn() {
-        // 현재 지도의 레벨을 얻어옵니다
-        level = map.getLevel();
-        map.setLevel(level - 1);
+    function getUserLocation() {
+        if (!navigator.geolocation) {
+            throw "위치 정보가 지원되지 않습니다.";
+        }
+        navigator.geolocation.watchPosition(({ coords, timestamp }) => {
+            latitude = coords.latitude; // 위도
+            longitude = coords.longitude; // 경도
+            userlat = coords.latitude;
+            userlng = coords.longitude; //앙아아아아아ㅏㅇ아아ㅏㅏ아ㅏ 너 무여 머ㅜㅑㅇ 왜 ㄴ안됨능달ㄴ뎅렞대ㅏㅇ ㅏ ㅓㄹ아아
+            let position = new kakao.maps.LatLng(latitude, longitude);
+
+            let marker = new kakao.maps.Marker({
+                position: position,
+                image: new kakao.maps.MarkerImage(
+                    "/img/user_local.png",
+                    new kakao.maps.Size(30, 50)
+                ),
+            });
+
+            marker.setMap(map);
+            map.setCenter(position);
+        });
     }
 
-    function zoomOut() {
-        // 현재 지도의 레벨을 얻어옵니다
-        level = map.getLevel();
-        map.setLevel(level + 1);
+    function closer() {
+        console.log(LIST.length);
+        for (let i = 0; i < LIST.length; i++) {
+            const clat = LIST[i].위도;
+            const clng = LIST[i].경도;
+            console.log(clat);
+            console.log(clng);
+            console.log(userlat);
+            console.log(userlng);
+            console.log("///////////////////////////////////");
+            const distance = (userlat - clat) ** 2 + (userlng - clng) ** 2;
+            if (distance < 7) {
+                console.log(distance);
+            }
+        }
     }
-    const reload = () => {
-        window.location.reload();
-    };
+    closer();
+
     function getChargerLocation() {
         let position = new kakao.maps.LatLng(lat, lng);
 
@@ -138,6 +145,60 @@
         kakao.maps.event.addListener(marker, "click", function () {
             overlay.setMap(map);
         });
+    }
+
+    function zoomIn() {
+        // 현재 지도의 레벨을 얻어옵니다
+        level = map.getLevel();
+        map.setLevel(level - 1);
+    }
+
+    function zoomOut() {
+        // 현재 지도의 레벨을 얻어옵니다
+        level = map.getLevel();
+        map.setLevel(level + 1);
+    }
+    const reload = () => {
+        window.location.reload();
+    };
+    function type() {
+        if (chgerType == "01") {
+            return "DC 차 데모";
+        } else if (chgerType == "02") {
+            return "AC 완속";
+        } else if (chgerType == "03") {
+            return "DC차데모+AC3상";
+        } else if (chgerType == "04") {
+            return "DC콤보";
+        } else if (chgerType == "05") {
+            return "DC차데모+DC콤보";
+        } else if (chgerType == "06") {
+            return "DC차데모+AC3상+DC콤보";
+        } else if (chgerType == "07") {
+            return "AC3상";
+        } else if (chgerType == "89") {
+            return "H2";
+        }
+        return;
+    }
+
+    function chergerStat() {
+        if (stat == "0") {
+            return "알수없음";
+        } else if (stat == "1") {
+            return "통신이상";
+        } else if (stat == "2") {
+            return "사용가능";
+        } else if (stat == "3") {
+            return "충전중";
+        } else if (stat == "4") {
+            return "운영중지";
+        } else if (stat == "5") {
+            return "점검중";
+        } else if (stat == "9") {
+            return "충전소 상태를 찾을 수 없음";
+        }
+        return;
     }
 </script>
 
@@ -192,97 +253,5 @@
     }
     .focl {
         color: black;
-    }
-    .wrap {
-        position: absolute;
-        left: 0;
-        bottom: 40px;
-        width: 288px;
-        height: 132px;
-        margin-left: -144px;
-        text-align: left;
-        overflow: hidden;
-        font-size: 12px;
-        font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
-        line-height: 1.5;
-    }
-    .wrap * {
-        padding: 0;
-        margin: 0;
-    }
-    .wrap .info {
-        width: 286px;
-        height: 120px;
-        border-radius: 5px;
-        border-bottom: 2px solid #ccc;
-        border-right: 1px solid #ccc;
-        overflow: hidden;
-        background: #fff;
-    }
-    .wrap .info:nth-child(1) {
-        border: 0;
-        box-shadow: 0px 1px 2px #888;
-    }
-    .info .title {
-        padding: 5px 0 0 10px;
-        height: 30px;
-        background: #eee;
-        border-bottom: 1px solid #ddd;
-        font-size: 18px;
-        font-weight: bold;
-    }
-    .info .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #888;
-        width: 17px;
-        height: 17px;
-        background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png");
-    }
-    .info .close:hover {
-        cursor: pointer;
-    }
-    .info .body {
-        position: relative;
-        overflow: hidden;
-    }
-    .info .desc {
-        position: relative;
-        margin: 13px 0 0 90px;
-        height: 75px;
-    }
-    .desc .ellipsis {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    .desc .jibun {
-        font-size: 11px;
-        color: #888;
-        margin-top: -2px;
-    }
-    .info .img {
-        position: absolute;
-        top: 6px;
-        left: 5px;
-        width: 73px;
-        height: 71px;
-        border: 1px solid #ddd;
-        color: #888;
-        overflow: hidden;
-    }
-    .info:after {
-        content: "";
-        position: absolute;
-        margin-left: -12px;
-        left: 50%;
-        bottom: 0;
-        width: 22px;
-        height: 12px;
-        background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
-    }
-    .info .link {
-        color: #5085bb;
     }
 </style>
