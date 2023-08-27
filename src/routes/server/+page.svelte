@@ -12,12 +12,12 @@
     let addr: any;
     let chgerType: any;
     let stat: any;
-    $: level = 3;
+    $: level = 6;
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
-    let userlat = 0;
-    let userlng = 0;
+    let userlat: any;
+    let userlng: any;
     const overlayMap = new Map<string, kakao.maps.CustomOverlay>();
     if (browser) {
         /**@ts-ignore*/
@@ -49,6 +49,7 @@
                </div>
             </div>
         </div>`;
+    //////////////////////////////////////////////////////////////////////////////////////////
     onMount(async () => {
         const options = {
             //지도를 생성할 때 필요한 기본 옵션
@@ -69,12 +70,13 @@
             chgerType = t.querySelector("chgerType")?.textContent; //충전기 타입
             stat = t.querySelector("stat")?.textContent; //충전기 용량
 
-            console.log(statNm);
-            console.log(lat);
-            console.log(lng);
-            console.log(chgerType);
-            console.log(stat);
-            console.log("---------------------------------------------------");
+            // console.log(statNm);
+            // console.log(lat);
+            // console.log(lng);
+            // console.log(chgerType);
+            // console.log(stat);
+            // console.log("---------------------------------------------------");
+            closer();
             getChargerLocation();
         }
     });
@@ -86,7 +88,9 @@
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
             userlat = coords.latitude;
-            userlng = coords.longitude; //앙아아아아아ㅏㅇ아아ㅏㅏ아ㅏ 너 무여 머ㅜㅑㅇ 왜 ㄴ안됨능달ㄴ뎅렞대ㅏㅇ ㅏ ㅓㄹ아아
+            userlng = coords.longitude;
+            console.log(userlat);
+            console.log(userlng);
             let position = new kakao.maps.LatLng(latitude, longitude);
 
             let marker = new kakao.maps.Marker({
@@ -99,6 +103,7 @@
 
             marker.setMap(map);
             map.setCenter(position);
+            return userlat;
         });
     }
 
@@ -111,14 +116,13 @@
             console.log(clng);
             console.log(userlat);
             console.log(userlng);
-            console.log("///////////////////////////////////");
             const distance = (userlat - clat) ** 2 + (userlng - clng) ** 2;
-            if (distance < 7) {
-                console.log(distance);
-            }
+            // if (distance < 7) {
+            console.log(distance);
+            // }
+            console.log("///////////////////////////////////");
         }
     }
-    closer();
 
     function getChargerLocation() {
         let position = new kakao.maps.LatLng(lat, lng);
@@ -202,25 +206,29 @@
     }
 </script>
 
-<div id="map" bind:this={container} />
-<div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
-    위도 : {latitude}, 경도 : {longitude}
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div class="content">
+    <div id="map" bind:this={container} />
+    <div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
+        위도 : {latitude}, 경도 : {longitude}
+    </div>
+
+    <div class="cl">
+        <a on:click={reload} style="cursor: pointer;">[새로고침]</a>
+        <br />
+        <a href="../" class="focl" style="cursor: pointer;">[BACK]</a>
+    </div>
+    <div
+        style="position: fixed; bottom:0; right:0; z-index:2;cursor: pointer;"
+        class="maplevel bacolor"
+    >
+        <span on:click={zoomIn}>+</span>
+        /
+        <span on:click={zoomOut}>-</span>
+    </div>
 </div>
 
-<div class="cl">
-    <a on:click={reload} style="cursor: pointer;">[새로고침]</a>
-    <br />
-    <a href="../" class="focl" style="cursor: pointer;">[BACK]</a>
-</div>
-<div
-    style="position: fixed; bottom:0; right:0; z-index:2;cursor: pointer;"
-    class="maplevel bacolor"
->
-    <span on:click={zoomIn}>+</span>
-    /
-    <span on:click={zoomOut}>-</span>
-</div>
-
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 <style>
     #map {
         width: 100vw;
@@ -253,5 +261,14 @@
     }
     .focl {
         color: black;
+    }
+    .content.hidden {
+        opacity: 0;
+    }
+    .scroll {
+        overflow: hidden;
+    }
+    .scroll::-webkit-scrollbar {
+        display: none;
     }
 </style>
