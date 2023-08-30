@@ -50,7 +50,12 @@
             </div>
         </div>`;
     //////////////////////////////////////////////////////////////////////////////////////////
+
     onMount(async () => {
+        // // 5초 후에 로딩 상태를 변경하여 로딩창을 숨김
+        // setTimeout(() => {
+        //     isLoading = false;
+        // }, 3000);
         const options = {
             //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(latitude, longitude), //지도의 중심좌표.  (사용자 현 위치로 바꿀 것)
@@ -114,8 +119,6 @@
             const clng = LIST[i].경도;
             console.log(clat);
             console.log(clng);
-            console.log(userlat);
-            console.log(userlng);
             const distance = (userlat - clat) ** 2 + (userlng - clng) ** 2;
             // if (distance < 7) {
             console.log(distance);
@@ -207,6 +210,16 @@
 </script>
 
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- 
+{#if isLoading}
+    <div class="loading-container">
+        <div class="loading-spinner" />
+    </div>
+{:else} -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner" />
+</div>
+<!-- ////////////////////////////////////////////// -->
 <div class="content">
     <div id="map" bind:this={container} />
     <div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
@@ -228,6 +241,7 @@
     </div>
 </div>
 
+<!-- {/if} -->
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 <style>
     #map {
@@ -262,6 +276,42 @@
     .focl {
         color: black;
     }
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        display: none; /* Initially hidden */
+    }
+
+    .loading-spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid #fff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .content {
+        opacity: 1;
+        transition: opacity 0.5s;
+    }
+
     .content.hidden {
         opacity: 0;
     }
