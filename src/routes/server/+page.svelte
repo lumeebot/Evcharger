@@ -18,7 +18,10 @@
     let longitude = 126.570667;
     let userlat: any;
     let userlng: any;
+    let nearLocationList = [];
     const overlayMap = new Map<string, kakao.maps.CustomOverlay>();
+    let min;
+    let minLocation;
     if (browser) {
         /**@ts-ignore*/
         window.map = overlayMap;
@@ -62,7 +65,9 @@
             level: level, //지도의 레벨(확대, 축소 정도)  (확대 수준이 바뀔때마다 업데이트)
         };
         map = new kakao.maps.Map(container, options);
+        console.log("맵");
         console.log(map);
+        console.log("///////////////////////");
         getUserLocation();
         const dom = await requestAPI({ pageNo: 1, numOfRows: 50, zcode: 41 }); // period: 5,
 
@@ -94,8 +99,10 @@
             longitude = coords.longitude; // 경도
             userlat = coords.latitude;
             userlng = coords.longitude;
+            console.log("현위치");
             console.log(userlat);
             console.log(userlng);
+            console.log("/////////////////////////////////////");
             let position = new kakao.maps.LatLng(latitude, longitude);
 
             let marker = new kakao.maps.Marker({
@@ -113,18 +120,24 @@
     }
 
     function closer() {
+        console.log("colser 함수 실행됬당")
         console.log(LIST.length);
         for (let i = 0; i < LIST.length; i++) {
             const clat = LIST[i].위도;
             const clng = LIST[i].경도;
-            console.log(clat);
-            console.log(clng);
+            // console.log(clat);
+            // console.log(clng);
             const distance = (userlat - clat) ** 2 + (userlng - clng) ** 2;
             // if (distance < 7) {
-            console.log(distance);
+            nearLocationList[i] = distance;
             // }
-            console.log("///////////////////////////////////");
         }
+        min = Math.min.apply(null, nearLocationList);
+        console.log(nearLocationList);
+        console.log(min);
+        minLocation = nearLocationList.indexOf(min);
+        console.log(minLocation)
+        // console.log();
     }
 
     function getChargerLocation() {
@@ -209,13 +222,6 @@
     }
 </script>
 
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- 
-{#if isLoading}
-    <div class="loading-container">
-        <div class="loading-spinner" />
-    </div>
-{:else} -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner" />
 </div>
