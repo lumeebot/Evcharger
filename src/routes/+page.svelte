@@ -1,19 +1,20 @@
 <script>
     import { onMount } from "svelte";
 
-    let isClickArr_charger = [false, false, false];
     let isClickArr_charger_DC = [false];
-    let isClickArr_wayfast = [false];
-    let isClickArr_wayfull = [false];
+    let isClickArr_charger_COMBO = [false];
+    let isClickArr_charger_FULL = [false];
+    let isClickArr_charger_AC3 = [false];
 </script>
 
 <div class="container">
     <div class="title">타입</div>
-    {#each isClickArr_charger as elm, i}
+    {#each isClickArr_charger_AC3 as elm, i}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="type {elm ? 'clicked' : ''}"
-            on:click={() => (isClickArr_charger[i] = !isClickArr_charger[i])}
+            on:click={() =>
+                (isClickArr_charger_AC3[i] = !isClickArr_charger_AC3[i])}
         >
             <img
                 src="/img/charge{i}.png"
@@ -22,7 +23,41 @@
                 alt="charge{i}"
                 style="cursor: pointer;"
             /><br />
-            <span style="cursor: pointer;">AC/DC</span>
+            <span style="cursor: pointer;">AC3상</span>
+        </div>
+    {/each}
+    {#each isClickArr_charger_FULL as elm, i}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div
+            class="type {elm ? 'clicked' : ''}"
+            on:click={() =>
+                (isClickArr_charger_FULL[i] = !isClickArr_charger_FULL[i])}
+        >
+            <img
+                src="/img/charge{i + 1}.png"
+                width="200"
+                height="200"
+                alt="charge{i + 1}"
+                style="cursor: pointer;"
+            /><br />
+            <span style="cursor: pointer;">AC완속</span>
+        </div>
+    {/each}
+    {#each isClickArr_charger_COMBO as elm, i}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div
+            class="type {elm ? 'clicked' : ''}"
+            on:click={() =>
+                (isClickArr_charger_COMBO[i] = !isClickArr_charger_COMBO[i])}
+        >
+            <img
+                src="/img/charge{i + 2}.png"
+                width="200"
+                height="200"
+                alt="charge{i + 2}"
+                style="cursor: pointer;"
+            /><br />
+            <span style="cursor: pointer;">DC콤보</span>
         </div>
     {/each}
     {#each isClickArr_charger_DC as elm, i}
@@ -40,39 +75,6 @@
                 style="cursor: pointer;"
             /><br />
             <span style="cursor: pointer;">DC</span>
-        </div>
-    {/each}
-
-    {#each isClickArr_wayfast as elm, i}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div
-            class="type {elm ? 'clicked' : ''}"
-            on:click={() => (isClickArr_wayfast[i] = !isClickArr_wayfast[i])}
-        >
-            <img
-                src="/img/charge_way{i}.png"
-                width="200"
-                height="120"
-                alt="charge_way{i}"
-                style="cursor: pointer;"
-            /><br />
-            <span style="cursor: pointer;">급속</span>
-        </div>
-    {/each}
-    {#each isClickArr_wayfull as elm, i}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div
-            class="type {elm ? 'clicked' : ''}"
-            on:click={() => (isClickArr_wayfull[i] = !isClickArr_wayfull[i])}
-        >
-            <img
-                src="/img/charge_way{i + 1}.png"
-                width="200"
-                height="120"
-                alt="charge_way{i + 1}"
-                style="cursor: pointer;"
-            /><br />
-            <span style="cursor: pointer;">완속</span>
         </div>
     {/each}
 

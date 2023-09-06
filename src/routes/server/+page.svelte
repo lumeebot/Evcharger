@@ -86,9 +86,10 @@
             // console.log(chgerType);
             // console.log(stat);
             // console.log("---------------------------------------------------");
-            closer();
+            
             getChargerLocation();
         }
+        closer();
     });
     function getUserLocation() {
         if (!navigator.geolocation) {
@@ -123,11 +124,11 @@
         console.log("colser 함수 실행됬당")
         console.log(LIST.length);
         for (let i = 0; i < LIST.length; i++) {
-            const clat = LIST[i].위도;
-            const clng = LIST[i].경도;
+            const clat = LIST[i].latitude;
+            const clng = LIST[i].longitude;
             // console.log(clat);
             // console.log(clng);
-            const distance = (userlat - clat) ** 2 + (userlng - clng) ** 2;
+            const distance = ((userlat - clat) ** 2 + (userlng - clng) ** 2);
             // if (distance < 7) {
             nearLocationList[i] = distance;
             // }
@@ -137,6 +138,7 @@
         console.log(min);
         minLocation = nearLocationList.indexOf(min);
         console.log(minLocation)
+        console.log(LIST[minLocation])
         // console.log();
     }
 
