@@ -47,7 +47,7 @@
                         <div class="ellipsis">충전기 상태 : ${chergerStat()}</div>
                     </div>
                     <div class="img">
-                        <a href="https://map.kakao.com/link/to/${statNm},${lat},${lng}" target="_blank"><img src="/img/kakao_logo.webp" width="33" height="30"></a>
+                        <a href="https://map.kakao.com/link/to/${statNm},${lat},${lng}" target="_blank"><img src="/img/kakao_logo.webp" width="33" height="30"><span>길안내</span></a>
                    </div>
                </div>
             </div>
@@ -261,6 +261,7 @@
         height: 100px;
         font-size: xx-large;
         text-decoration: none;
+         text-decoration-line: none;
     }
     .cl {
         height: auto;
