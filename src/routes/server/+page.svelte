@@ -2,8 +2,10 @@
     import { onMount } from "svelte";
     import { requestAPI } from "$lib/api";
     import LIST from "$lib/geo.json";
+    import LIST_NUM from "$lib/geo_num.json";
     import { browser } from "$app/environment";
     console.log(LIST);
+    console.log(LIST_NUM);
     let container: HTMLDivElement;
     let lat: number | any;
     let lng: number | any;
@@ -86,7 +88,7 @@
             // console.log(chgerType);
             // console.log(stat);
             // console.log("---------------------------------------------------");
-            
+
             getChargerLocation();
         }
         closer();
@@ -121,14 +123,14 @@
     }
 
     function closer() {
-        console.log("colser 함수 실행됬당")
+        console.log("colser 함수 실행됬당");
         console.log(LIST.length);
         for (let i = 0; i < LIST.length; i++) {
             const clat = LIST[i].latitude;
             const clng = LIST[i].longitude;
             // console.log(clat);
             // console.log(clng);
-            const distance = ((userlat - clat) ** 2 + (userlng - clng) ** 2);
+            const distance = (userlat - clat) ** 2 + (userlng - clng) ** 2;
             // if (distance < 7) {
             nearLocationList[i] = distance;
             // }
@@ -137,8 +139,9 @@
         console.log(nearLocationList);
         console.log(min);
         minLocation = nearLocationList.indexOf(min);
-        console.log(minLocation)
-        console.log(LIST[minLocation])
+        console.log(minLocation);
+        console.log(LIST[minLocation]);
+        console.log(LIST[minLocation].city);
         // console.log();
     }
 
@@ -261,7 +264,7 @@
         height: 100px;
         font-size: xx-large;
         text-decoration: none;
-         text-decoration-line: none;
+        text-decoration-line: none;
     }
     .cl {
         height: auto;
