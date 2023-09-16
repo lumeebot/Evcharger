@@ -23,7 +23,8 @@
     let nearLocationList = [];
     const overlayMap = new Map<string, kakao.maps.CustomOverlay>();
     let min;
-    let minLocation;
+    let minLocation; //가장 가까운 거리
+    let min_city;
     if (browser) {
         /**@ts-ignore*/
         window.map = overlayMap;
@@ -142,7 +143,11 @@
         console.log(minLocation);
         console.log(LIST[minLocation]);
         console.log(LIST[minLocation].city);
-        // console.log();
+        min_city = LIST[minLocation].city;
+        // let car = cars.find(car => car.color === "red");
+        let found = LIST_NUM.find((e) => e.city === min_city);
+        console.log(found);
+        console.log(found?.zscode);
     }
 
     function getChargerLocation() {
