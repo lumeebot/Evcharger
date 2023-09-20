@@ -2,7 +2,8 @@ interface iRequestAPI {
     pageNo: number;
     numOfRows: number;
     // period:number;
-    zcode: number;
+    zcode?: string | number;
+    zscode?:number | undefined;
 }
 export const requestAPI = async (obj: iRequestAPI) => {
     // let url = 'http://apis.data.go.kr/B552584/EvCharger/getChargerStatus'; /*URL*/
@@ -12,8 +13,8 @@ export const requestAPI = async (obj: iRequestAPI) => {
     url.searchParams.append('pageNo', String(obj.pageNo));
     url.searchParams.append('numOfRows', String(obj.numOfRows));
     // url.searchParams.append('period', String(obj.period));
-    url.searchParams.append('zcode', String(obj.zcode));
-    url.searchParams.append('zscode', '41270');
+    // url.searchParams.append('zcode', String(obj.zcode));
+    url.searchParams.append('zscode', String(obj.zscode));
     const res = await fetch(url);
     const text = await res.text();
     const parser = new DOMParser();

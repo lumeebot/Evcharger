@@ -6,6 +6,7 @@
     import { browser } from "$app/environment";
     console.log(LIST);
     console.log(LIST_NUM);
+    let num: number;
     let container: HTMLDivElement;
     let lat: number | any;
     let lng: number | any;
@@ -20,11 +21,11 @@
     let longitude = 126.570667;
     let userlat: any;
     let userlng: any;
-    let nearLocationList = [];
+    let nearLocationList: any[] = [];
     const overlayMap = new Map<string, kakao.maps.CustomOverlay>();
     let min;
     let minLocation; //가장 가까운 거리
-    let min_city;
+    let min_city: any;
     if (browser) {
         /**@ts-ignore*/
         window.map = overlayMap;
@@ -55,7 +56,6 @@
                </div>
             </div>
         </div>`;
-    //////////////////////////////////////////////////////////////////////////////////////////
 
     onMount(async () => {
         // // 5초 후에 로딩 상태를 변경하여 로딩창을 숨김
@@ -71,7 +71,7 @@
         console.log("맵");
         console.log(map);
         console.log("///////////////////////");
-        getUserLocation();
+        await getUserLocation();
         const dom = await requestAPI({ pageNo: 1, numOfRows: 50, zcode: 41 }); // period: 5,
 
         for (const t of dom.querySelectorAll("item")) {
@@ -92,13 +92,31 @@
 
             getChargerLocation();
         }
-        closer();
+        const myLocDOM = await closer();
+        for (const t of dom.querySelectorAll("item")) {
+            lat = t.querySelector("lat")?.textContent; //위도
+            lng = t.querySelector("lng")?.textContent; //경도
+            useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
+            statNm = t.querySelector("statNm")?.textContent; //충전소 명
+            addr = t.querySelector("addr")?.textContent; //소재지 도로명 주소
+            chgerType = t.querySelector("chgerType")?.textContent; //충전기 타입
+            stat = t.querySelector("stat")?.textContent; //충전기 용량
+
+            // console.log(statNm);
+            // console.log(lat);
+            // console.log(lng);
+            // console.log(chgerType);
+            // console.log(stat);
+            // console.log("---------------------------------------------------");
+
+            getChargerLocation();
+        }
     });
-    function getUserLocation() {
+    async function getUserLocation() {
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
         }
-        navigator.geolocation.watchPosition(({ coords, timestamp }) => {
+        await navigator.geolocation.watchPosition(({ coords, timestamp }) => {
             latitude = coords.latitude; // 위도
             longitude = coords.longitude; // 경도
             userlat = coords.latitude;
@@ -145,9 +163,20 @@
         console.log(LIST[minLocation].city);
         min_city = LIST[minLocation].city;
         // let car = cars.find(car => car.color === "red");
-        let found = LIST_NUM.find((e) => e.city === min_city);
+        let found:
+            | {
+                  zscode: number;
+                  city: string;
+              }
+            | undefined = LIST_NUM.find((e) => e.city === min_city);
         console.log(found);
         console.log(found?.zscode);
+        let found_city = { 
+            zscode: found?.zscode, 
+            pageNo: 1, 
+            numOfRows: 50
+        };
+        return requestAPI(found_city);
     }
 
     function getChargerLocation() {
@@ -235,7 +264,6 @@
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner" />
 </div>
-<!-- ////////////////////////////////////////////// -->
 <div class="content">
     <div id="map" bind:this={container} />
     <div style="position: fixed; top:0; left:0; z-index:2" class="bacolor">
@@ -257,8 +285,6 @@
     </div>
 </div>
 
-<!-- {/if} -->
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 <style>
     #map {
         width: 100vw;

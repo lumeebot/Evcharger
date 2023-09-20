@@ -1,6 +1,5 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
-
     let isClickArr_charger_DC = [false];
     let isClickArr_charger_COMBO = [false];
     let isClickArr_charger_FULL = [false];
