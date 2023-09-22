@@ -4,8 +4,9 @@
     import LIST from "$lib/geo.json";
     import LIST_NUM from "$lib/geo_num.json";
     import { browser } from "$app/environment";
-    console.log(LIST);
-    console.log(LIST_NUM);
+    // import { charger_type_DC } from "../+page.svelte";
+    // console.log(LIST);
+    // console.log(LIST_NUM);
     let num: number;
     let container: HTMLDivElement;
     let lat: number | any;
@@ -26,6 +27,8 @@
     let min;
     let minLocation; //가장 가까운 거리
     let min_city: any;
+
+    // console.log(charger_type_DC);
     if (browser) {
         /**@ts-ignore*/
         window.map = overlayMap;
@@ -68,32 +71,15 @@
             level: level, //지도의 레벨(확대, 축소 정도)  (확대 수준이 바뀔때마다 업데이트)
         };
         map = new kakao.maps.Map(container, options);
-        console.log("맵");
-        console.log(map);
-        console.log("///////////////////////");
+        // console.log("맵");
+        // console.log(map);
+        // console.log("///////////////////////");
         await getUserLocation();
         const dom = await requestAPI({ pageNo: 1, numOfRows: 50, zcode: 41 }); // period: 5,
 
-        for (const t of dom.querySelectorAll("item")) {
-            lat = t.querySelector("lat")?.textContent; //위도
-            lng = t.querySelector("lng")?.textContent; //경도
-            useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
-            statNm = t.querySelector("statNm")?.textContent; //충전소 명
-            addr = t.querySelector("addr")?.textContent; //소재지 도로명 주소
-            chgerType = t.querySelector("chgerType")?.textContent; //충전기 타입
-            stat = t.querySelector("stat")?.textContent; //충전기 용량
-
-            // console.log(statNm);
-            // console.log(lat);
-            // console.log(lng);
-            // console.log(chgerType);
-            // console.log(stat);
-            // console.log("---------------------------------------------------");
-
-            getChargerLocation();
-        }
         const myLocDOM = await closer();
-        for (const t of dom.querySelectorAll("item")) {
+        // console.log(myLocDOM);
+        for (const t of myLocDOM.querySelectorAll("item")) {
             lat = t.querySelector("lat")?.textContent; //위도
             lng = t.querySelector("lng")?.textContent; //경도
             useTime = t.querySelector("useTime")?.textContent; //사용가능 시간
@@ -116,34 +102,33 @@
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
         }
-        await navigator.geolocation.watchPosition(({ coords, timestamp }) => {
-            latitude = coords.latitude; // 위도
-            longitude = coords.longitude; // 경도
-            userlat = coords.latitude;
-            userlng = coords.longitude;
-            console.log("현위치");
-            console.log(userlat);
-            console.log(userlng);
-            console.log("/////////////////////////////////////");
-            let position = new kakao.maps.LatLng(latitude, longitude);
+        await new Promise((res) =>
+            navigator.geolocation.getCurrentPosition(
+                ({ coords, timestamp }) => {
+                    latitude = coords.latitude; // 위도
+                    longitude = coords.longitude; // 경도
+                    userlat = coords.latitude;
+                    userlng = coords.longitude;
+                    let position = new kakao.maps.LatLng(latitude, longitude);
 
-            let marker = new kakao.maps.Marker({
-                position: position,
-                image: new kakao.maps.MarkerImage(
-                    "/img/user_local.png",
-                    new kakao.maps.Size(30, 50)
-                ),
-            });
+                    let marker = new kakao.maps.Marker({
+                        position: position,
+                        image: new kakao.maps.MarkerImage(
+                            "/img/user_local.png",
+                            new kakao.maps.Size(30, 50)
+                        ),
+                    });
 
-            marker.setMap(map);
-            map.setCenter(position);
-            return userlat;
-        });
+                    marker.setMap(map);
+                    map.setCenter(position);
+                    res(null);
+                    return userlat;
+                }
+            )
+        );
     }
 
     function closer() {
-        console.log("colser 함수 실행됬당");
-        console.log(LIST.length);
         for (let i = 0; i < LIST.length; i++) {
             const clat = LIST[i].latitude;
             const clng = LIST[i].longitude;
@@ -155,12 +140,7 @@
             // }
         }
         min = Math.min.apply(null, nearLocationList);
-        console.log(nearLocationList);
-        console.log(min);
         minLocation = nearLocationList.indexOf(min);
-        console.log(minLocation);
-        console.log(LIST[minLocation]);
-        console.log(LIST[minLocation].city);
         min_city = LIST[minLocation].city;
         // let car = cars.find(car => car.color === "red");
         let found:
@@ -169,12 +149,10 @@
                   city: string;
               }
             | undefined = LIST_NUM.find((e) => e.city === min_city);
-        console.log(found);
-        console.log(found?.zscode);
-        let found_city = { 
-            zscode: found?.zscode, 
-            pageNo: 1, 
-            numOfRows: 50
+        let found_city = {
+            zscode: found?.zscode,
+            pageNo: 1,
+            numOfRows: 50,
         };
         return requestAPI(found_city);
     }
