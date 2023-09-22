@@ -1,19 +1,19 @@
-<script lang="ts">
+<script lang="ts"  >
     import { onMount } from "svelte";
-    let isClickArr_charger_DC = [false];
-    let isClickArr_charger_COMBO = [false];
-    let isClickArr_charger_FULL = [false];
-    let isClickArr_charger_AC3 = [false];
+    export let charger_type_DC = [false];
+    export let charger_type_COMBO = [false];
+    export let charger_type_FULL = [false];
+    export let charger_type_AC3 = [false];
 </script>
 
 <div class="container">
     <div class="title">타입</div>
-    {#each isClickArr_charger_AC3 as elm, i}
+    {#each charger_type_AC3 as elm, i}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="type {elm ? 'clicked' : ''}"
             on:click={() =>
-                (isClickArr_charger_AC3[i] = !isClickArr_charger_AC3[i])}
+                (charger_type_AC3[i] = !charger_type_AC3[i])}
         >
             <img
                 src="/img/charge{i}.png"
@@ -25,12 +25,12 @@
             <span style="cursor: pointer;">AC3상</span>
         </div>
     {/each}
-    {#each isClickArr_charger_FULL as elm, i}
+    {#each charger_type_FULL as elm, i}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="type {elm ? 'clicked' : ''}"
             on:click={() =>
-                (isClickArr_charger_FULL[i] = !isClickArr_charger_FULL[i])}
+                (charger_type_FULL[i] = !charger_type_FULL[i])}
         >
             <img
                 src="/img/charge{i + 1}.png"
@@ -42,12 +42,12 @@
             <span style="cursor: pointer;">AC완속</span>
         </div>
     {/each}
-    {#each isClickArr_charger_COMBO as elm, i}
+    {#each charger_type_COMBO as elm, i}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="type {elm ? 'clicked' : ''}"
             on:click={() =>
-                (isClickArr_charger_COMBO[i] = !isClickArr_charger_COMBO[i])}
+                (charger_type_COMBO[i] = !charger_type_COMBO[i])}
         >
             <img
                 src="/img/charge{i + 2}.png"
@@ -59,12 +59,12 @@
             <span style="cursor: pointer;">DC콤보</span>
         </div>
     {/each}
-    {#each isClickArr_charger_DC as elm, i}
+    {#each charger_type_DC as elm, i}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="type {elm ? 'clicked' : ''}"
             on:click={() =>
-                (isClickArr_charger_DC[i] = !isClickArr_charger_DC[i])}
+                (charger_type_DC[i] = !charger_type_DC[i])}
         >
             <img
                 src="/img/charge{i + 3}.png"
