@@ -4,7 +4,7 @@
     import LIST from "$lib/geo.json";
     import LIST_NUM from "$lib/geo_num.json";
     import { browser } from "$app/environment";
-    // import { charger_type_DC } from "../+page.svelte";
+    // import MYMAP from "../+page.svelte";
     // console.log(LIST);
     // console.log(LIST_NUM);
     let num: number;
@@ -28,7 +28,7 @@
     let minLocation; //가장 가까운 거리
     let min_city: any;
 
-    // console.log(charger_type_DC);
+    // console.log("MyMap", MYMAP);
     if (browser) {
         /**@ts-ignore*/
         window.map = overlayMap;
