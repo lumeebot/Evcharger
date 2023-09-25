@@ -4,6 +4,10 @@
     import LIST from "$lib/geo.json";
     import LIST_NUM from "$lib/geo_num.json";
     import { browser } from "$app/environment";
+    import { page } from "$app/stores";
+
+    const actives = JSON.parse($page.url.searchParams.get("active") ?? "[]");
+    console.log(actives);
     // import MYMAP from "../+page.svelte";
     // console.log(LIST);
     // console.log(LIST_NUM);
@@ -61,10 +65,6 @@
         </div>`;
 
     onMount(async () => {
-        // // 5초 후에 로딩 상태를 변경하여 로딩창을 숨김
-        // setTimeout(() => {
-        //     isLoading = false;
-        // }, 3000);
         const options = {
             //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(latitude, longitude), //지도의 중심좌표.  (사용자 현 위치로 바꿀 것)
@@ -102,7 +102,7 @@
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
         }
-        await new Promise((res) =>
+        await new Promise((res) =>  //promise 객체 (찾아보기)
             navigator.geolocation.getCurrentPosition(
                 ({ coords, timestamp }) => {
                     latitude = coords.latitude; // 위도
@@ -127,7 +127,36 @@
             )
         );
     }
-
+    function filtering() {
+        let filteringList = [];
+        if (actives.indexOf("AC3") > -1) {
+            filteringList.push("07");
+        }
+        if (actives.indexOf("FULL") > -1) {
+            filteringList.push("02");
+        }
+        if (actives.indexOf("COMBO") > -1) {
+            filteringList.push("04");
+        }
+        if (actives.indexOf("DC") > -1) {
+            filteringList.push("01");
+        }
+        if (actives.indexOf("DC") || actives.indexOf("COMBO") > -1) {
+            filteringList.push("05");
+        }
+        if (actives.indexOf("DC") || actives.indexOf("AC3") > -1) {
+            filteringList.push("03");
+        }
+        if (
+            actives.indexOf("DC") ||
+            actives.indexOf("COMBO") ||
+            actives.indexOf("AC3") > -1
+        ) {
+            filteringList.push("06");
+        }
+        console.log(filteringList);
+    }
+    filtering();
     function closer() {
         for (let i = 0; i < LIST.length; i++) {
             const clat = LIST[i].latitude;
@@ -251,7 +280,7 @@
     <div class="cl">
         <a on:click={reload} style="cursor: pointer;">[새로고침]</a>
         <br />
-        <a href="../" class="focl" style="cursor: pointer;">[BACK]</a>
+        <a href="../" class="focl" style="cursor: pointer;">[뒤로가기]</a>
     </div>
     <div
         style="position: fixed; bottom:0; right:0; z-index:2;cursor: pointer;"
