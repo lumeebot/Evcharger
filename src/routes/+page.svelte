@@ -1,85 +1,45 @@
-<script lang="ts" >
-    import { onMount } from "svelte";
-    export let charger_type_DC = [false];
-    export let charger_type_COMBO = [false];
-    export let charger_type_FULL = [false];
-    export let charger_type_AC3 = [false];
+<script lang="ts">
+    import { goto } from "$app/navigation";
+    const types = [
+        { name: "AC3", toggle: false, text: "AC3상" },
+        { name: "FULL", toggle: false, text: "AC완속" },
+        { name: "COMBO", toggle: false, text: "DC콤보" },
+        { name: "DC", toggle: false, text: "DC" },
+    ];
 </script>
 
 <div class="title">
-    <h1>타입</h1>
+    <h2>타입</h2>
 </div>
 <div class="container">
-    {#each charger_type_AC3 as elm}
+    {#each types as { name, toggle, text }, i}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
-            class="type {elm ? 'clicked' : ''}"
-            on:click={() => (charger_type_AC3[0] = !charger_type_AC3[0])}
+            class="type {toggle ? 'clicked' : ''}"
+            on:click={() => (toggle = !toggle)}
         >
             <img
-                src="/img/charge{0}.png"
+                src="/img/charge{i}.png"
                 width="200"
                 height="200"
-                alt="charge{0}"
+                alt="charge_{name}"
                 style="cursor: pointer;"
             /><br />
-            <span style="cursor: pointer;">AC3상</span>
-        </div>
-    {/each}
-    {#each charger_type_FULL as elm}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div
-            class="type {elm ? 'clicked' : ''}"
-            on:click={() => (charger_type_FULL[0] = !charger_type_FULL[0])}
-        >
-            <img
-                src="/img/charge{1}.png"
-                width="200"
-                height="200"
-                alt="charge{1}"
-                style="cursor: pointer;"
-            /><br />
-            <span style="cursor: pointer;">AC완속</span>
-        </div>
-    {/each}
-    {#each charger_type_COMBO as elm}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div
-            class="type {elm ? 'clicked' : ''}"
-            on:click={() => (charger_type_COMBO[0] = !charger_type_COMBO[0])}
-        >
-            <img
-                src="/img/charge{2}.png"
-                width="200"
-                height="200"
-                alt="charge{2}"
-                style="cursor: pointer;"
-            /><br />
-            <span style="cursor: pointer;">DC콤보</span>
-        </div>
-    {/each}
-    {#each charger_type_DC as elm}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div
-            class="type {elm ? 'clicked' : ''}"
-            on:click={() => (charger_type_DC[0] = !charger_type_DC[0])}
-        >
-            <img
-                src="/img/charge{3}.png"
-                width="200"
-                height="200"
-                alt="charge{3}"
-                style="cursor: pointer;"
-            /><br />
-            <span style="cursor: pointer;">DC</span>
+            <span style="cursor: pointer;">{text}</span>
         </div>
     {/each}
 </div>
 <div class="choose_finish">
-    <button onclick="location.href='/server'">선택완료</button>
+    <button
+        on:click={() =>
+            goto(
+                `/server?active=${JSON.stringify(
+                    types.filter((v) => v.toggle).map((v) => v.name)    //rest api를 이용해서 서버에 map api를 요청한다
+                )}`
+            )}>선택완료</button
+    >
     <!--a href="/server" style="cursor: pointer;" class="choose_finish">선택완료</a-->
 </div>
-
 
 <style>
     .container {
@@ -105,17 +65,17 @@
     .choose_finish {
         font-weight: 500;
         font-size: xx-large;
-        color: rgb(31, 155, 0);
+        color: rgb(105, 248, 69);
         text-align: center;
     }
     .choose_finish button {
         font-size: xx-large;
-        background-color:rgb(107, 209, 158);
-        color: rgb(233, 22, 22)
+        background-color: rgb(47, 216, 134);
+        color: rgb(255, 255, 255);
     }
     span {
         font-weight: bold;
-        color: rgb(84, 145, 49);
+        color: rgb(123, 231, 61);
     }
     a {
         text-decoration: none;
