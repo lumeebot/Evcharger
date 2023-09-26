@@ -31,6 +31,7 @@
     let min;
     let minLocation; //가장 가까운 거리
     let min_city: any;
+    let filteringList: any[];
 
     // console.log("MyMap", MYMAP);
     if (browser) {
@@ -75,7 +76,6 @@
         // console.log(map);
         // console.log("///////////////////////");
         await getUserLocation();
-        const dom = await requestAPI({ pageNo: 1, numOfRows: 50, zcode: 41 }); // period: 5,
 
         const myLocDOM = await closer();
         // console.log(myLocDOM);
@@ -102,33 +102,39 @@
         if (!navigator.geolocation) {
             throw "위치 정보가 지원되지 않습니다.";
         }
-        await new Promise((res) =>  //promise 객체 (찾아보기)
-            navigator.geolocation.getCurrentPosition(
-                ({ coords, timestamp }) => {
-                    latitude = coords.latitude; // 위도
-                    longitude = coords.longitude; // 경도
-                    userlat = coords.latitude;
-                    userlng = coords.longitude;
-                    let position = new kakao.maps.LatLng(latitude, longitude);
+        await new Promise(
+            (
+                res //promise 객체 (찾아보기)
+            ) =>
+                navigator.geolocation.getCurrentPosition(
+                    ({ coords, timestamp }) => {
+                        latitude = coords.latitude; // 위도
+                        longitude = coords.longitude; // 경도
+                        userlat = coords.latitude;
+                        userlng = coords.longitude;
+                        let position = new kakao.maps.LatLng(
+                            latitude,
+                            longitude
+                        );
 
-                    let marker = new kakao.maps.Marker({
-                        position: position,
-                        image: new kakao.maps.MarkerImage(
-                            "/img/user_local.png",
-                            new kakao.maps.Size(30, 50)
-                        ),
-                    });
+                        let marker = new kakao.maps.Marker({
+                            position: position,
+                            image: new kakao.maps.MarkerImage(
+                                "/img/user_local.png",
+                                new kakao.maps.Size(30, 50)
+                            ),
+                        });
 
-                    marker.setMap(map);
-                    map.setCenter(position);
-                    res(null);
-                    return userlat;
-                }
-            )
+                        marker.setMap(map);
+                        map.setCenter(position);
+                        res(null);
+                        return userlat;
+                    }
+                )
         );
     }
     function filtering() {
-        let filteringList = [];
+        filteringList = [];
         if (actives.indexOf("AC3") > -1) {
             filteringList.push("07");
         }
@@ -141,15 +147,15 @@
         if (actives.indexOf("DC") > -1) {
             filteringList.push("01");
         }
-        if (actives.indexOf("DC") || actives.indexOf("COMBO") > -1) {
+        if (actives.indexOf("DC") > -1 || actives.indexOf("COMBO") > -1) {
             filteringList.push("05");
         }
-        if (actives.indexOf("DC") || actives.indexOf("AC3") > -1) {
+        if (actives.indexOf("DC") > -1 || actives.indexOf("AC3") > -1) {
             filteringList.push("03");
         }
         if (
-            actives.indexOf("DC") ||
-            actives.indexOf("COMBO") ||
+            actives.indexOf("DC") > -1 ||
+            actives.indexOf("COMBO") > -1 ||
             actives.indexOf("AC3") > -1
         ) {
             filteringList.push("06");
@@ -187,30 +193,34 @@
     }
 
     function getChargerLocation() {
-        let position = new kakao.maps.LatLng(lat, lng);
+        if (filteringList.indexOf(chgerType) > -1) {
+            let position = new kakao.maps.LatLng(lat, lng);
 
-        let marker = new kakao.maps.Marker({
-            position: position,
-            image: new kakao.maps.MarkerImage(
-                "/img/ev_local.png",
-                new kakao.maps.Size(30, 50)
-            ),
-        });
-        marker.setMap(map);
+            let marker = new kakao.maps.Marker({
+                position: position,
+                image: new kakao.maps.MarkerImage(
+                    "/img/ev_local.png",
+                    new kakao.maps.Size(30, 50)
+                ),
+            });
+            marker.setMap(map);
 
-        // 마커 위에 커스텀오버레이를 표시합니다
-        // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-        let overlay = new kakao.maps.CustomOverlay({
-            content: content(lat, lng),
-            map: map,
-            position: marker.getPosition(),
-        });
-        overlay.setMap(null);
-        overlayMap.set(`${lat},${lng}`, overlay);
-        // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-        kakao.maps.event.addListener(marker, "click", function () {
-            overlay.setMap(map);
-        });
+            // 마커 위에 커스텀오버레이를 표시합니다
+            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+            let overlay = new kakao.maps.CustomOverlay({
+                content: content(lat, lng),
+                map: map,
+                position: marker.getPosition(),
+            });
+            overlay.setMap(null);
+            overlayMap.set(`${lat},${lng}`, overlay);
+            // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+            kakao.maps.event.addListener(marker, "click", function () {
+                overlay.setMap(map);
+            });
+        } else {
+            console.log("this is not right");
+        }
     }
 
     function zoomIn() {
