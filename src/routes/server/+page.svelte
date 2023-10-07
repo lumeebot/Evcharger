@@ -7,7 +7,7 @@
     import { page } from "$app/stores";
 
     const actives = JSON.parse($page.url.searchParams.get("active") ?? "[]");
-    console.log(actives);
+    // console.log(actives);
     // import MYMAP from "../+page.svelte";
     // console.log(LIST);
     // console.log(LIST_NUM);
@@ -20,7 +20,7 @@
     let addr: any;
     let chgerType: any;
     let stat: any;
-    $: level = 6;
+    $: level = 3;
     let map: kakao.maps.Map;
     let latitude = 33.450701;
     let longitude = 126.570667;
@@ -160,7 +160,7 @@
         ) {
             filteringList.push("06");
         }
-        console.log(filteringList);
+        // console.log(filteringList);
     }
     filtering();
     function closer() {
@@ -187,7 +187,7 @@
         let found_city = {
             zscode: found?.zscode,
             pageNo: 1,
-            numOfRows: 50,
+            numOfRows: 500,
         };
         return requestAPI(found_city);
     }
@@ -218,9 +218,10 @@
             kakao.maps.event.addListener(marker, "click", function () {
                 overlay.setMap(map);
             });
-        } else {
-            console.log("this is not right");
-        }
+        } 
+        // else {
+        //     // console.log("this is not right");
+        // }
     }
 
     function zoomIn() {
