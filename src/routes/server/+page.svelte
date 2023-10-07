@@ -181,7 +181,7 @@
         let found:
             | {
                   zscode: number;
-                  city: string;
+                  city: string;     
               }
             | undefined = LIST_NUM.find((e) => e.city === min_city);
         let found_city = {

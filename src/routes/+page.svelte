@@ -9,7 +9,7 @@
 </script>
 
 <div class="title">
-    <h2>타입</h2>
+    <h2>타입을 선택하세요</h2>
 </div>
 <div class="container">
     {#each types as { name, toggle, text }, i}
