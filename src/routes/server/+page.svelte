@@ -324,9 +324,6 @@
         z-index: 2;
         text-align: right;
     }
-    .bacolor {
-        /* background-color: whitesmoke; */
-    }
     .maplevel {
         width: auto;
         height: auto;
@@ -372,13 +369,4 @@
         transition: opacity 0.5s;
     }
 
-    .content.hidden {
-        opacity: 0;
-    }
-    .scroll {
-        overflow: hidden;
-    }
-    .scroll::-webkit-scrollbar {
-        display: none;
-    }
 </style>

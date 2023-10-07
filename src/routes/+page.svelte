@@ -77,7 +77,4 @@
         font-weight: bold;
         color: rgb(123, 231, 61);
     }
-    a {
-        text-decoration: none;
-    }
 </style>
