@@ -8,6 +8,42 @@
     ];
 </script>
 
+<head>
+    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-H2D93MS0SJ"
+    ></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-H2D93MS0SJ");
+    </script>
+    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-T5JSPZCG");
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+
 <div class="title">
     <h2>타입을 선택하세요</h2>
 </div>
@@ -34,12 +70,24 @@
         on:click={() =>
             goto(
                 `/server?active=${JSON.stringify(
-                    types.filter((v) => v.toggle).map((v) => v.name)    //rest api를 이용해서 서버에 map api를 요청한다
+                    types.filter((v) => v.toggle).map((v) => v.name) //rest api를 이용해서 서버에 map api를 요청한다
                 )}`
             )}>선택완료</button
     >
     <!--a href="/server" style="cursor: pointer;" class="choose_finish">선택완료</a-->
 </div>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+        ><iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-T5JSPZCG"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+        /></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+</body>
 
 <style>
     .container {

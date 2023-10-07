@@ -181,7 +181,7 @@
         let found:
             | {
                   zscode: number;
-                  city: string;     
+                  city: string;
               }
             | undefined = LIST_NUM.find((e) => e.city === min_city);
         let found_city = {
@@ -218,7 +218,7 @@
             kakao.maps.event.addListener(marker, "click", function () {
                 overlay.setMap(map);
             });
-        } 
+        }
         // else {
         //     // console.log("this is not right");
         // }
@@ -279,6 +279,42 @@
     }
 </script>
 
+<head>
+    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-H2D93MS0SJ"
+    ></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-H2D93MS0SJ");
+    </script>
+    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-T5JSPZCG");
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner" />
 </div>
@@ -302,6 +338,18 @@
         <span on:click={zoomOut}>-</span>
     </div>
 </div>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+        ><iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-T5JSPZCG"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+        /></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+</body>
 
 <style>
     #map {
@@ -369,5 +417,4 @@
         opacity: 1;
         transition: opacity 0.5s;
     }
-
 </style>
