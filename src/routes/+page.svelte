@@ -13,6 +13,8 @@
     <!-- Google tag (gtag.js) -->
     <!-- Google tag (gtag.js) -->
     <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-H2D93MS0SJ"
@@ -26,6 +28,8 @@
 
         gtag("config", "G-H2D93MS0SJ");
     </script>
+    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager -->
     <!-- Google Tag Manager -->
     <!-- Google Tag Manager -->
     <!-- Google Tag Manager -->
@@ -45,7 +49,7 @@
 </head>
 
 <div class="title">
-    <h2>타입을 선택하세요</h2>
+    <h2>내 근처 충전소 찾기</h2>
 </div>
 <div class="container">
     {#each types as { name, toggle, text }, i}
@@ -66,6 +70,27 @@
     {/each}
 </div>
 <div class="choose_finish">
+    <h3>타입 별 기종 예시</h3>
+    <div class="example">
+        <table>
+            <tr>
+                <td>AC3상</td>
+                <td> 르노삼성의 SM3 </td>
+            </tr>
+            <tr>
+                <td>AC완속</td>
+                <td> 르노삼성의 SM3를 제외한 모든 차종 </td>
+            </tr>
+            <tr>
+                <td>DC콤보</td>
+                <td>아이오닉5, 코나, EV6, 니로 등</td>
+            </tr>
+            <tr>
+                <td>DC</td>
+                <td>기아차 쏘울(2017년 이전 차량) 및 닛산 리프</td>
+            </tr>
+        </table>
+    </div>
     <button
         on:click={() =>
             goto(
@@ -111,12 +136,10 @@
         background-color: rgb(123, 230, 57);
     }
     .choose_finish {
-        font-weight: 500;
-        font-size: xx-large;
-        color: rgb(105, 248, 69);
         text-align: center;
     }
     .choose_finish button {
+        font-weight: 500;
         font-size: xx-large;
         background-color: rgb(47, 216, 134);
         color: rgb(255, 255, 255);
@@ -124,5 +147,26 @@
     span {
         font-weight: bold;
         color: rgb(123, 231, 61);
+    }
+    h2 {
+        margin: auto;
+    }
+    h3 {
+        margin: auto;
+    }
+    table{
+        text-align: center;
+        margin: auto;
+        border-collapse: collapse;
+    }
+    tr{
+        border: 1px solid black;
+    }
+    td{
+        border: 1px solid black;
+
+    }
+    button{
+        margin: 1;
     }
 </style>
