@@ -90,7 +90,7 @@
                 <td>기아차 쏘울(2017년 이전 차량) 및 닛산 리프</td>
             </tr>
         </table>
-    </div>
+    </div>  
     <button
         on:click={() =>
             goto(
@@ -169,4 +169,4 @@
     button{
         margin: 1;
     }
-</style>
+</style>    

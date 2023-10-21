@@ -6,7 +6,7 @@
     import { browser } from "$app/environment";
     import { page } from "$app/stores";
 
-    const actives = JSON.parse($page.url.searchParams.get("active") ?? "[]");
+    const actives = JSON.parse($page.url.searchParams.get("active") ?? "[]");   //JSON.parse로 가져왔다.
     // console.log(actives);
     // import MYMAP from "../+page.svelte";
     // console.log(LIST);
@@ -21,7 +21,7 @@
     let chgerType: any;
     let stat: any;
     $: level = 3;
-    let map: kakao.maps.Map;
+    let map: kakao.maps.Map;  
     let latitude = 33.450701;
     let longitude = 126.570667;
     let userlat: any;
