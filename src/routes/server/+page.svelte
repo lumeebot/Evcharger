@@ -112,6 +112,10 @@
                         longitude = coords.longitude; // 경도
                         userlat = coords.latitude;
                         userlng = coords.longitude;
+                        latitude = 37.58656649328822; // 위도
+                        longitude = 126.97485090628695; // 경도
+                        userlat = 37.58656649328822;
+                        userlng = 126.97485090628695;
                         let position = new kakao.maps.LatLng(
                             latitude,
                             longitude
@@ -156,7 +160,7 @@
         if (
             actives.indexOf("DC") > -1 ||
             actives.indexOf("COMBO") > -1 ||
-            actives.indexOf("AC3") > -1
+            actives.indexOf("AC3") > -1 
         ) {
             filteringList.push("06");
         }
